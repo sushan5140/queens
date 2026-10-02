@@ -86,7 +86,7 @@
     .reader-footer{display:flex;justify-content:space-between;align-items:center;gap:15px;padding:15px 22px;background:var(--paper);position:sticky;bottom:0;border-top:1px solid #dfc5b6}
     @media(hover:hover) and (pointer:fine){.gift-button:hover{transform:translateY(-6px)}.part-tab:hover{transform:translateY(-3px)}.page-nav:not(:disabled):hover{background:#f7e0df}}
     @media(max-width:800px){.letter-book{padding:0 20px;margin-bottom:65px}.book-label{font-size:.8rem}.book-label strong{font-size:1.4rem}.page-surface{padding:4px}.page-nav{padding:9px 14px;font-size:.82rem}.book-controls{gap:8px;margin-top:24px}.page-position{font-size:.8rem}.intro{padding-top:55px;padding-bottom:45px}.intro p{font-size:1.45rem}.postscript{padding-bottom:65px}.topline{padding:23px 22px}.topline span:last-child{display:none}.reader-bar{padding:11px 13px}.reader-title{font-size:1.2rem}.reader-actions{gap:12px}.reader-actions a{font-size:.74rem}.reader-footer{padding:12px 13px}footer{margin:0 22px;padding:23px 0 30px;align-items:flex-start}}
-    @media(prefers-reduced-motion:reduce){.ring{animation:none!important}.letter-world{animation:arrive 200ms ease both}.gift-button,.part-tab{transition:opacity 150ms ease}.gift-button:hover,.gift-button:active,.part-tab:hover{transform:none}}
+    @media(prefers-reduced-motion:reduce){.tunnel.running .ring{animation-duration:5200ms}.letter-world{animation:arrive 200ms ease both}.gift-button,.part-tab{transition:opacity 150ms ease}.gift-button:hover,.gift-button:active,.part-tab:hover{transform:none}}
   </style>
 </head>
 <body>
@@ -166,22 +166,42 @@
       window.scrollTo(0,0);
       document.getElementById('letter-title').focus({preventScroll:true});
     }
-    function openGift(){
+    async function prepareFlowers(){
+      const flowerImages=[...tunnel.querySelectorAll('.ring')];
+      await Promise.all(flowerImages.map(async img=>{
+        if(!img.complete){
+          await new Promise(resolve=>{
+            img.addEventListener('load',resolve,{once:true});
+            img.addEventListener('error',resolve,{once:true});
+          });
+        }
+        if(img.decode){
+          try{await img.decode();}catch(_){}
+        }
+      }));
+    }
+    async function openGift(){
       if(isOpening)return;
       isOpening=true;
       opening.hidden=true;
-      if(reduce.matches){showLetters();return;}
       tunnel.hidden=false;
-      tunnel.classList.add('running');
+      tunnel.classList.remove('running');
       document.getElementById('skip').focus({preventScroll:true});
-      openingTimer=setTimeout(showLetters,4600);
+      await prepareFlowers();
+      if(!isOpening)return;
+      void tunnel.offsetWidth;
+      requestAnimationFrame(()=>{
+        if(!isOpening)return;
+        tunnel.classList.add('running');
+        openingTimer=setTimeout(showLetters,reduce.matches?5600:4600);
+      });
     }
     openButton.addEventListener('click',openGift);
     document.getElementById('skip').addEventListener('click',showLetters);
     document.getElementById('replay').addEventListener('click',()=>{
       turnTo(0);letters.hidden=true;opening.hidden=false;window.scrollTo(0,0);openButton.focus({preventScroll:true});
     });
-    reduce.addEventListener('change',()=>{if(reduce.matches&&isOpening)showLetters();});
+    reduce.addEventListener('change',()=>{});
     const pages=[
       {src:'assets/letter-1.webp',alt:'Part one of Susan’s letter to Subhana, thanking her for her advice and support.'},
       {src:'assets/letter-2.webp',alt:'Part two continues the same letter with loyalty, questionable wisdom and memes, and a reminder that even a queen can rest.'},
