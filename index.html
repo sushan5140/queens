@@ -31,24 +31,18 @@
     .opening h1{font-family:'Caveat',cursive;font-size:clamp(2.4rem,6vw,3.6rem);font-weight:500;color:var(--rose);margin:23px 0 6px;line-height:1.25}
     .tap{font-family:'Caveat',cursive;font-size:1.25rem;color:var(--muted);margin:0}
     .opening-foot{margin:50px 0 0;font-size:.86rem;color:var(--muted)}
-    .tunnel{position:fixed;inset:0;z-index:5;overflow:hidden;display:grid;place-items:center;background:#fffdf8;transition:opacity 420ms ease}
+    .tunnel{position:fixed;inset:0;z-index:5;background:var(--paper);overflow:hidden;display:grid;place-items:center}
     .tunnel[hidden]{display:none}
-    .tunnel.exiting{opacity:0}
-    .ring{position:absolute;width:min(86vw,78vh);height:auto;aspect-ratio:1;object-fit:contain;opacity:0;pointer-events:none;will-change:transform,opacity;filter:drop-shadow(0 8px 13px #ad826127)}
-    .tunnel.running .ring{animation:through-the-flowers 4300ms cubic-bezier(.34,.02,.58,1) both}
+    .ring{position:absolute;width:min(85vw,80vh);height:min(85vw,80vh);object-fit:contain;opacity:0;pointer-events:none;will-change:transform,opacity}
+    .tunnel.running .ring{animation:through-the-flowers 4200ms linear infinite}
     .tunnel.running .ring:nth-child(1){animation-delay:0ms}
-    .tunnel.running .ring:nth-child(2){animation-delay:400ms}
-    .tunnel.running .ring:nth-child(3){animation-delay:800ms}
-    .tunnel.running .ring:nth-child(4){animation-delay:1200ms}
-    .tunnel.running .ring:nth-child(5){animation-delay:1600ms}
-    .tunnel.running .ring:nth-child(6){animation-delay:2000ms}
-    .tunnel.running .ring:nth-child(7){animation-delay:2400ms}
-    @keyframes through-the-flowers{
-      0%{transform:scale(.24) rotate(-4deg);opacity:0}
-      13%{opacity:1}
-      75%{opacity:1}
-      100%{transform:scale(5.3) rotate(5deg);opacity:0}
-    }
+    .tunnel.running .ring:nth-child(2){animation-delay:-600ms}
+    .tunnel.running .ring:nth-child(3){animation-delay:-1200ms}
+    .tunnel.running .ring:nth-child(4){animation-delay:-1800ms}
+    .tunnel.running .ring:nth-child(5){animation-delay:-2400ms}
+    .tunnel.running .ring:nth-child(6){animation-delay:-3000ms}
+    .tunnel.running .ring:nth-child(7){animation-delay:-3600ms}
+    @keyframes through-the-flowers{0%{transform:scale(.55) rotate(-5deg);opacity:0}12%{opacity:1}78%{opacity:1}100%{transform:scale(5.6) rotate(8deg);opacity:0}}
     .skip{position:absolute;right:24px;top:24px;z-index:2;border:1px solid #e4cac8;background:#fffbf4ed;border-radius:100px;padding:9px 18px;font-size:.85rem}
     .letter-world{min-height:100svh;background:radial-gradient(ellipse at 0 16%,#f5dce1a8,transparent 42%),radial-gradient(ellipse at 100% 30%,#f7e4d9a6,transparent 38%),var(--paper);animation:arrive 500ms var(--ease-out) both}
     @keyframes arrive{from{opacity:0}to{opacity:1}}
@@ -166,7 +160,7 @@
     function showLetters(){
       if(!isOpening)return;
       clearTimeout(openingTimer);
-      tunnel.classList.remove('running','exiting');
+      tunnel.classList.remove('running');
       tunnel.hidden=true;
       letters.hidden=false;
       isOpening=false;
@@ -179,13 +173,13 @@
       opening.hidden=true;
       if(reduce.matches){showLetters();return;}
       tunnel.hidden=false;
-      tunnel.classList.remove('running','exiting');
+      tunnel.classList.remove('running');
       document.getElementById('skip').focus({preventScroll:true});
       void tunnel.offsetWidth;
       requestAnimationFrame(()=>{
         if(!isOpening)return;
         tunnel.classList.add('running');
-        openingTimer=setTimeout(()=>{tunnel.classList.add('exiting');openingTimer=setTimeout(showLetters,420);},6400);
+        openingTimer=setTimeout(showLetters,4600);
       });
     }
     openButton.addEventListener('click',openGift);
