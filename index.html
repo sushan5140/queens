@@ -32,7 +32,8 @@
     .tap{font-family:'Caveat',cursive;font-size:1.25rem;color:var(--muted);margin:0}
     .opening-foot{margin:50px 0 0;font-size:.86rem;color:var(--muted)}
     .tunnel{position:fixed;inset:0;z-index:5;background:var(--paper);overflow:hidden;display:grid;place-items:center}
-    .ring{position:absolute;width:min(85vw,80vh);height:min(85vw,80vh);object-fit:contain;opacity:0;pointer-events:none;will-change:transform,opacity}
+    .ring{position:absolute;width:min(85vw,80vh);aspect-ratio:1;opacity:0;pointer-events:none;will-change:transform,opacity}
+    .flower{position:absolute;left:50%;top:50%;font-size:clamp(30px,4.4vw,58px);line-height:1;transform:translate(-50%,-50%) rotate(calc(var(--i)*30deg)) translateY(-43%) rotate(calc(var(--i)*-30deg));filter:drop-shadow(0 2px 2px #8c5d6330);user-select:none}
     .tunnel.running .ring{animation:through-the-flowers 4200ms linear infinite}
     .tunnel.running .ring:nth-child(1){animation-delay:0ms}
     .tunnel.running .ring:nth-child(2){animation-delay:-600ms}
@@ -100,13 +101,13 @@
     <p class="opening-foot">From your most troublesome apprentice, Susan.</p>
   </section>
   <div class="tunnel" id="tunnel" hidden aria-label="Your gift is opening">
-    <img class="ring" src="assets/flower-ring.webp" alt="" width="1024" height="1024">
-    <img class="ring" src="assets/flower-ring.webp" alt="" width="1024" height="1024">
-    <img class="ring" src="assets/flower-ring.webp" alt="" width="1024" height="1024">
-    <img class="ring" src="assets/flower-ring.webp" alt="" width="1024" height="1024">
-    <img class="ring" src="assets/flower-ring.webp" alt="" width="1024" height="1024">
-    <img class="ring" src="assets/flower-ring.webp" alt="" width="1024" height="1024">
-    <img class="ring" src="assets/flower-ring.webp" alt="" width="1024" height="1024">
+    <div class="ring" aria-hidden="true"></div>
+    <div class="ring" aria-hidden="true"></div>
+    <div class="ring" aria-hidden="true"></div>
+    <div class="ring" aria-hidden="true"></div>
+    <div class="ring" aria-hidden="true"></div>
+    <div class="ring" aria-hidden="true"></div>
+    <div class="ring" aria-hidden="true"></div>
     <button class="skip" id="skip">Skip flowers</button>
   </div>
   <main class="letter-world" id="letters" hidden>
@@ -166,19 +167,19 @@
       window.scrollTo(0,0);
       document.getElementById('letter-title').focus({preventScroll:true});
     }
-    async function prepareFlowers(){
-      const flowerImages=[...tunnel.querySelectorAll('.ring')];
-      await Promise.all(flowerImages.map(async img=>{
-        if(!img.complete){
-          await new Promise(resolve=>{
-            img.addEventListener('load',resolve,{once:true});
-            img.addEventListener('error',resolve,{once:true});
-          });
+    function prepareFlowers(){
+      const blooms=['🌸','🌺','🌷','🌼'];
+      tunnel.querySelectorAll('.ring').forEach((ring,ringIndex)=>{
+        if(ring.childElementCount)return;
+        for(let i=0;i<12;i++){
+          const flower=document.createElement('span');
+          flower.className='flower';
+          flower.style.setProperty('--i',i);
+          flower.textContent=blooms[(i+ringIndex)%blooms.length];
+          ring.appendChild(flower);
         }
-        if(img.decode){
-          try{await img.decode();}catch(_){}
-        }
-      }));
+      });
+      return Promise.resolve();
     }
     async function openGift(){
       if(isOpening)return;
