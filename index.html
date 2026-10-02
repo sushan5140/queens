@@ -31,18 +31,19 @@
     .opening h1{font-family:'Caveat',cursive;font-size:clamp(2.4rem,6vw,3.6rem);font-weight:500;color:var(--rose);margin:23px 0 6px;line-height:1.25}
     .tap{font-family:'Caveat',cursive;font-size:1.25rem;color:var(--muted);margin:0}
     .opening-foot{margin:50px 0 0;font-size:.86rem;color:var(--muted)}
-    .tunnel{position:fixed;inset:0;z-index:5;background:var(--paper);overflow:hidden;display:grid;place-items:center}
-    .ring{position:absolute;width:min(85vw,80vh);aspect-ratio:1;opacity:0;pointer-events:none;will-change:transform,opacity}
-    .flower{position:absolute;left:50%;top:50%;font-size:clamp(30px,4.4vw,58px);line-height:1;transform:translate(-50%,-50%) rotate(calc(var(--i)*30deg)) translateY(-43%) rotate(calc(var(--i)*-30deg));filter:drop-shadow(0 2px 2px #8c5d6330);user-select:none}
-    .tunnel.running .ring{animation:through-the-flowers 4200ms linear infinite}
-    .tunnel.running .ring:nth-child(1){animation-delay:0ms}
-    .tunnel.running .ring:nth-child(2){animation-delay:-600ms}
-    .tunnel.running .ring:nth-child(3){animation-delay:-1200ms}
-    .tunnel.running .ring:nth-child(4){animation-delay:-1800ms}
-    .tunnel.running .ring:nth-child(5){animation-delay:-2400ms}
-    .tunnel.running .ring:nth-child(6){animation-delay:-3000ms}
-    .tunnel.running .ring:nth-child(7){animation-delay:-3600ms}
-    @keyframes through-the-flowers{0%{transform:scale(.55) rotate(-5deg);opacity:0}12%{opacity:1}78%{opacity:1}100%{transform:scale(5.6) rotate(8deg);opacity:0}}
+    .tunnel{position:fixed;inset:0;z-index:5;overflow:hidden;display:grid;place-items:center;background:radial-gradient(circle at 50% 48%,#fffaf4 0%,#f7e9e4 58%,#efdcda 100%)}
+    .tunnel[hidden]{display:none}
+    .ring{position:absolute;width:min(84vw,74vh);height:auto;aspect-ratio:1;object-fit:contain;opacity:0;pointer-events:none;will-change:transform,opacity;filter:drop-shadow(0 12px 24px #854e5b27)}
+    .tunnel.running .ring{animation:through-the-flowers 2600ms cubic-bezier(.27,.02,.38,1) both}
+    .tunnel.running .ring:nth-child(1){animation-delay:-250ms}
+    .tunnel.running .ring:nth-child(2){animation-delay:950ms}
+    .tunnel.running .ring:nth-child(3){animation-delay:2050ms}
+    @keyframes through-the-flowers{
+      0%{transform:scale(.25) rotate(-6deg);opacity:0}
+      20%{opacity:.95}
+      58%{opacity:.9}
+      100%{transform:scale(3.7) rotate(6deg);opacity:0}
+    }
     .skip{position:absolute;right:24px;top:24px;z-index:2;border:1px solid #e4cac8;background:#fffbf4ed;border-radius:100px;padding:9px 18px;font-size:.85rem}
     .letter-world{min-height:100svh;background:radial-gradient(ellipse at 0 16%,#f5dce1a8,transparent 42%),radial-gradient(ellipse at 100% 30%,#f7e4d9a6,transparent 38%),var(--paper);animation:arrive 500ms var(--ease-out) both}
     @keyframes arrive{from{opacity:0}to{opacity:1}}
@@ -87,7 +88,7 @@
     .reader-footer{display:flex;justify-content:space-between;align-items:center;gap:15px;padding:15px 22px;background:var(--paper);position:sticky;bottom:0;border-top:1px solid #dfc5b6}
     @media(hover:hover) and (pointer:fine){.gift-button:hover{transform:translateY(-6px)}.part-tab:hover{transform:translateY(-3px)}.page-nav:not(:disabled):hover{background:#f7e0df}}
     @media(max-width:800px){.letter-book{padding:0 20px;margin-bottom:65px}.book-label{font-size:.8rem}.book-label strong{font-size:1.4rem}.page-surface{padding:4px}.page-nav{padding:9px 14px;font-size:.82rem}.book-controls{gap:8px;margin-top:24px}.page-position{font-size:.8rem}.intro{padding-top:55px;padding-bottom:45px}.intro p{font-size:1.45rem}.postscript{padding-bottom:65px}.topline{padding:23px 22px}.topline span:last-child{display:none}.reader-bar{padding:11px 13px}.reader-title{font-size:1.2rem}.reader-actions{gap:12px}.reader-actions a{font-size:.74rem}.reader-footer{padding:12px 13px}footer{margin:0 22px;padding:23px 0 30px;align-items:flex-start}}
-    @media(prefers-reduced-motion:reduce){.tunnel.running .ring{animation-duration:5200ms}.letter-world{animation:arrive 200ms ease both}.gift-button,.part-tab{transition:opacity 150ms ease}.gift-button:hover,.gift-button:active,.part-tab:hover{transform:none}}
+    @media(prefers-reduced-motion:reduce){.tunnel.running .ring{animation:none}.letter-world{animation:arrive 200ms ease both}.gift-button,.part-tab{transition:opacity 150ms ease}.gift-button:hover,.gift-button:active,.part-tab:hover{transform:none}}
   </style>
 </head>
 <body>
@@ -101,13 +102,9 @@
     <p class="opening-foot">From your most troublesome apprentice, Susan.</p>
   </section>
   <div class="tunnel" id="tunnel" hidden aria-label="Your gift is opening">
-    <div class="ring" aria-hidden="true"></div>
-    <div class="ring" aria-hidden="true"></div>
-    <div class="ring" aria-hidden="true"></div>
-    <div class="ring" aria-hidden="true"></div>
-    <div class="ring" aria-hidden="true"></div>
-    <div class="ring" aria-hidden="true"></div>
-    <div class="ring" aria-hidden="true"></div>
+    <img class="ring" src="assets/flower-ring.webp" alt="" width="1254" height="1254" decoding="async">
+    <img class="ring" src="assets/flower-ring.webp" alt="" width="1254" height="1254" decoding="async">
+    <img class="ring" src="assets/flower-ring.webp" alt="" width="1254" height="1254" decoding="async">
     <button class="skip" id="skip">Skip flowers</button>
   </div>
   <main class="letter-world" id="letters" hidden>
@@ -167,34 +164,19 @@
       window.scrollTo(0,0);
       document.getElementById('letter-title').focus({preventScroll:true});
     }
-    function prepareFlowers(){
-      const blooms=['🌸','🌺','🌷','🌼'];
-      tunnel.querySelectorAll('.ring').forEach((ring,ringIndex)=>{
-        if(ring.childElementCount)return;
-        for(let i=0;i<12;i++){
-          const flower=document.createElement('span');
-          flower.className='flower';
-          flower.style.setProperty('--i',i);
-          flower.textContent=blooms[(i+ringIndex)%blooms.length];
-          ring.appendChild(flower);
-        }
-      });
-      return Promise.resolve();
-    }
-    async function openGift(){
+    function openGift(){
       if(isOpening)return;
       isOpening=true;
       opening.hidden=true;
+      if(reduce.matches){showLetters();return;}
       tunnel.hidden=false;
       tunnel.classList.remove('running');
       document.getElementById('skip').focus({preventScroll:true});
-      await prepareFlowers();
-      if(!isOpening)return;
       void tunnel.offsetWidth;
       requestAnimationFrame(()=>{
         if(!isOpening)return;
         tunnel.classList.add('running');
-        openingTimer=setTimeout(showLetters,reduce.matches?5600:4600);
+        openingTimer=setTimeout(showLetters,4700);
       });
     }
     openButton.addEventListener('click',openGift);
@@ -202,7 +184,7 @@
     document.getElementById('replay').addEventListener('click',()=>{
       turnTo(0);letters.hidden=true;opening.hidden=false;window.scrollTo(0,0);openButton.focus({preventScroll:true});
     });
-    reduce.addEventListener('change',()=>{});
+    reduce.addEventListener('change',()=>{if(reduce.matches&&isOpening)showLetters();});
     const pages=[
       {src:'assets/letter-1.webp',alt:'Part one of Susan’s letter to Subhana, thanking her for her advice and support.'},
       {src:'assets/letter-2.webp',alt:'Part two continues the same letter with loyalty, questionable wisdom and memes, and a reminder that even a queen can rest.'},
