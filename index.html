@@ -11,7 +11,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;500;600&family=DM+Sans:wght@400;500;600&family=Libre+Caslon+Display&display=swap" rel="stylesheet">
   <link rel="preload" as="image" href="assets/gift.webp">
-  <link rel="preload" as="image" href="assets/flower-ring.webp?v=25b4b38b">
+  <link rel="preload" as="image" href="assets/flower-tunnel.webp">
   <style>
     :root{--paper:#fcf6ed;--ink:#553a35;--rose:#943e55;--muted:#8c6b64;--ease-out:cubic-bezier(.23,1,.32,1);--ease-in-out:cubic-bezier(.77,0,.175,1)}
     *{box-sizing:border-box}
@@ -31,18 +31,23 @@
     .opening h1{font-family:'Caveat',cursive;font-size:clamp(2.4rem,6vw,3.6rem);font-weight:500;color:var(--rose);margin:23px 0 6px;line-height:1.25}
     .tap{font-family:'Caveat',cursive;font-size:1.25rem;color:var(--muted);margin:0}
     .opening-foot{margin:50px 0 0;font-size:.86rem;color:var(--muted)}
-    .tunnel{position:fixed;inset:0;z-index:5;overflow:hidden;display:grid;place-items:center;background:radial-gradient(circle at 50% 48%,#fffaf4 0%,#f7e9e4 58%,#efdcda 100%)}
+    .tunnel{position:fixed;inset:0;z-index:5;overflow:hidden;display:grid;place-items:center;background:#fffdf8;transition:opacity 420ms ease}
     .tunnel[hidden]{display:none}
-    .ring{position:absolute;width:min(84vw,74vh);height:auto;aspect-ratio:1;object-fit:contain;opacity:0;pointer-events:none;will-change:transform,opacity;filter:drop-shadow(0 12px 24px #854e5b27)}
-    .tunnel.running .ring{animation:through-the-flowers 2600ms cubic-bezier(.27,.02,.38,1) both}
-    .tunnel.running .ring:nth-child(1){animation-delay:-250ms}
-    .tunnel.running .ring:nth-child(2){animation-delay:950ms}
-    .tunnel.running .ring:nth-child(3){animation-delay:2050ms}
+    .tunnel.exiting{opacity:0}
+    .ring{position:absolute;width:min(86vw,78vh);height:auto;aspect-ratio:1;object-fit:contain;opacity:0;pointer-events:none;will-change:transform,opacity;filter:drop-shadow(0 8px 13px #ad826127)}
+    .tunnel.running .ring{animation:through-the-flowers 4300ms cubic-bezier(.34,.02,.58,1) both}
+    .tunnel.running .ring:nth-child(1){animation-delay:0ms}
+    .tunnel.running .ring:nth-child(2){animation-delay:400ms}
+    .tunnel.running .ring:nth-child(3){animation-delay:800ms}
+    .tunnel.running .ring:nth-child(4){animation-delay:1200ms}
+    .tunnel.running .ring:nth-child(5){animation-delay:1600ms}
+    .tunnel.running .ring:nth-child(6){animation-delay:2000ms}
+    .tunnel.running .ring:nth-child(7){animation-delay:2400ms}
     @keyframes through-the-flowers{
-      0%{transform:scale(.25) rotate(-6deg);opacity:0}
-      20%{opacity:.95}
-      58%{opacity:.9}
-      100%{transform:scale(3.7) rotate(6deg);opacity:0}
+      0%{transform:scale(.24) rotate(-4deg);opacity:0}
+      13%{opacity:1}
+      75%{opacity:1}
+      100%{transform:scale(5.3) rotate(5deg);opacity:0}
     }
     .skip{position:absolute;right:24px;top:24px;z-index:2;border:1px solid #e4cac8;background:#fffbf4ed;border-radius:100px;padding:9px 18px;font-size:.85rem}
     .letter-world{min-height:100svh;background:radial-gradient(ellipse at 0 16%,#f5dce1a8,transparent 42%),radial-gradient(ellipse at 100% 30%,#f7e4d9a6,transparent 38%),var(--paper);animation:arrive 500ms var(--ease-out) both}
@@ -102,9 +107,13 @@
     <p class="opening-foot">From your most troublesome apprentice, Susan.</p>
   </section>
   <div class="tunnel" id="tunnel" hidden aria-label="Your gift is opening">
-    <img class="ring" src="assets/flower-ring.webp?v=25b4b38b" alt="" width="1254" height="1254" decoding="async">
-    <img class="ring" src="assets/flower-ring.webp?v=25b4b38b" alt="" width="1254" height="1254" decoding="async">
-    <img class="ring" src="assets/flower-ring.webp?v=25b4b38b" alt="" width="1254" height="1254" decoding="async">
+    <img class="ring" src="assets/flower-tunnel.webp" alt="" width="1254" height="1254">
+    <img class="ring" src="assets/flower-tunnel.webp" alt="" width="1254" height="1254">
+    <img class="ring" src="assets/flower-tunnel.webp" alt="" width="1254" height="1254">
+    <img class="ring" src="assets/flower-tunnel.webp" alt="" width="1254" height="1254">
+    <img class="ring" src="assets/flower-tunnel.webp" alt="" width="1254" height="1254">
+    <img class="ring" src="assets/flower-tunnel.webp" alt="" width="1254" height="1254">
+    <img class="ring" src="assets/flower-tunnel.webp" alt="" width="1254" height="1254">
     <button class="skip" id="skip">Skip flowers</button>
   </div>
   <main class="letter-world" id="letters" hidden>
@@ -157,7 +166,7 @@
     function showLetters(){
       if(!isOpening)return;
       clearTimeout(openingTimer);
-      tunnel.classList.remove('running');
+      tunnel.classList.remove('running','exiting');
       tunnel.hidden=true;
       letters.hidden=false;
       isOpening=false;
@@ -170,13 +179,13 @@
       opening.hidden=true;
       if(reduce.matches){showLetters();return;}
       tunnel.hidden=false;
-      tunnel.classList.remove('running');
+      tunnel.classList.remove('running','exiting');
       document.getElementById('skip').focus({preventScroll:true});
       void tunnel.offsetWidth;
       requestAnimationFrame(()=>{
         if(!isOpening)return;
         tunnel.classList.add('running');
-        openingTimer=setTimeout(showLetters,4700);
+        openingTimer=setTimeout(()=>{tunnel.classList.add('exiting');openingTimer=setTimeout(showLetters,420);},6400);
       });
     }
     openButton.addEventListener('click',openGift);
