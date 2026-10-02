@@ -1,0 +1,248 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#fcf6ed">
+  <meta name="description" content="One letter in three parts for Subhana, from her most troublesome apprentice, Susan.">
+  <title>A Royal Delivery for Subhana</title>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%23fcf6ed'/%3E%3Ctext x='32' y='45' text-anchor='middle' font-family='Georgia' font-size='40' fill='%23943e55'%3ES%3C/text%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;500;600&family=DM+Sans:wght@400;500;600&family=Libre+Caslon+Display&display=swap" rel="stylesheet">
+  <link rel="preload" as="image" href="assets/gift.webp">
+  <link rel="preload" as="image" href="assets/flower-ring.webp">
+  <style>
+    :root{--paper:#fcf6ed;--ink:#553a35;--rose:#943e55;--muted:#8c6b64;--ease-out:cubic-bezier(.23,1,.32,1);--ease-in-out:cubic-bezier(.77,0,.175,1)}
+    *{box-sizing:border-box}
+    [hidden]{display:none!important}
+    body{margin:0;background:var(--paper);color:var(--ink);font-family:'DM Sans',sans-serif;font-size:16px;line-height:1.7}
+    button,a{-webkit-tap-highlight-color:transparent}
+    button{font:inherit;color:inherit;cursor:pointer}
+    a{color:var(--rose)}
+    :focus-visible{outline:3px solid #b9657c;outline-offset:6px}
+    ::selection{background:#f0cfce}
+    .opening{min-height:100svh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:45px 24px;background:radial-gradient(ellipse at 30% 75%,#f7e4db55,transparent 55%),var(--paper)}
+    .delivery-tag{font-size:.76rem;letter-spacing:.22em;text-transform:uppercase;color:var(--muted);margin:0 0 35px}
+    .gift-button{border:0;padding:0;background:none;display:flex;flex-direction:column;align-items:center;min-width:250px;border-radius:18px;transition:transform 150ms var(--ease-out)}
+    .gift-button:active{transform:scale(.97)}
+    .gift-art{width:240px;height:240px;object-fit:contain;display:block}
+    h1,h2,p{margin-top:0}
+    .opening h1{font-family:'Caveat',cursive;font-size:clamp(2.4rem,6vw,3.6rem);font-weight:500;color:var(--rose);margin:23px 0 6px;line-height:1.25}
+    .tap{font-family:'Caveat',cursive;font-size:1.25rem;color:var(--muted);margin:0}
+    .opening-foot{margin:50px 0 0;font-size:.86rem;color:var(--muted)}
+    .tunnel{position:fixed;inset:0;z-index:5;background:var(--paper);overflow:hidden;display:grid;place-items:center}
+    .ring{position:absolute;width:min(85vw,80vh);height:min(85vw,80vh);object-fit:contain;opacity:0;pointer-events:none;will-change:transform,opacity}
+    .tunnel.running .ring{animation:through-the-flowers 4200ms linear infinite}
+    .tunnel.running .ring:nth-child(1){animation-delay:0ms}
+    .tunnel.running .ring:nth-child(2){animation-delay:-600ms}
+    .tunnel.running .ring:nth-child(3){animation-delay:-1200ms}
+    .tunnel.running .ring:nth-child(4){animation-delay:-1800ms}
+    .tunnel.running .ring:nth-child(5){animation-delay:-2400ms}
+    .tunnel.running .ring:nth-child(6){animation-delay:-3000ms}
+    .tunnel.running .ring:nth-child(7){animation-delay:-3600ms}
+    @keyframes through-the-flowers{0%{transform:scale(.55) rotate(-5deg);opacity:0}12%{opacity:1}78%{opacity:1}100%{transform:scale(5.6) rotate(8deg);opacity:0}}
+    .skip{position:absolute;right:24px;top:24px;z-index:2;border:1px solid #e4cac8;background:#fffbf4ed;border-radius:100px;padding:9px 18px;font-size:.85rem}
+    .letter-world{min-height:100svh;background:radial-gradient(ellipse at 0 16%,#f5dce1a8,transparent 42%),radial-gradient(ellipse at 100% 30%,#f7e4d9a6,transparent 38%),var(--paper);animation:arrive 500ms var(--ease-out) both}
+    @keyframes arrive{from{opacity:0}to{opacity:1}}
+    .topline{max-width:1250px;margin:auto;padding:26px 30px;display:flex;justify-content:space-between;align-items:center;gap:20px;font-size:.78rem;color:var(--muted)}
+    .topline span:first-child{letter-spacing:.13em;text-transform:uppercase}
+    .intro{max-width:900px;margin:auto;padding:80px 25px 64px;text-align:center}
+    .intro h1{font-family:'Caveat',cursive;font-size:clamp(3.2rem,7.2vw,6.2rem);color:var(--rose);font-weight:500;line-height:1.13;margin:0 0 20px}
+    .intro p{color:var(--muted);font-family:'Caveat',cursive;font-size:1.65rem;margin-bottom:0}
+    .letter-book{max-width:1060px;margin:0 auto 75px;padding:0 30px}
+    .book-label{display:flex;justify-content:space-between;align-items:center;gap:20px;margin-bottom:15px;color:var(--muted);font-size:.87rem}
+    .book-label strong{font-family:'Caveat',cursive;font-size:1.6rem;font-weight:500;color:var(--rose)}
+    .page-surface{border:1px solid #d8b8a4;background:#c0a084;padding:7px;box-shadow:0 14px 36px #754f4328,4px 4px 0 #ead8c9,7px 7px 0 #cda88c;touch-action:pan-y}
+    .letter-trigger{display:block;width:100%;border:0;background:transparent;padding:0;overflow:hidden;border-radius:1px}
+    .letter-trigger img{width:100%;height:auto;aspect-ratio:1456/1086;object-fit:contain;display:block;background:#b49173}
+    .book-controls{display:flex;justify-content:space-between;align-items:center;gap:15px;margin:27px 0 19px}
+    .page-nav{border:1px solid #cfa9a5;border-radius:100px;padding:10px 20px;background:#fff9f1;color:var(--rose);font-size:.88rem;min-height:44px}
+    .page-nav:disabled{opacity:.38;cursor:default}
+    .page-position{color:var(--muted);font-size:.88rem}
+    .part-tabs{display:flex;justify-content:center;gap:12px}
+    .part-tab{border:1px solid #dbc0b3;border-radius:5px;background:#fff9f1;padding:5px;max-width:105px;transition:transform 150ms var(--ease-out)}
+    .part-tab img{width:100%;height:auto;display:block;aspect-ratio:1456/1086;object-fit:contain}
+    .part-tab span{display:block;font-size:.78rem;padding:3px 0 0;color:var(--muted)}
+    .part-tab[aria-pressed="true"]{border:2px solid var(--rose);padding:4px;background:#f8e3e4}
+    .gallery-help{text-align:center;color:var(--muted);font-size:.86rem;margin:20px 0 0}
+    .postscript{max-width:780px;margin:0 auto;padding:0 30px 100px}
+    .ps-rule{border-top:1px solid #d9bdb5;position:relative;margin-bottom:42px}
+    .ps-rule span{position:absolute;left:50%;top:0;transform:translate(-50%,-50%);padding:0 14px;background:var(--paper);color:var(--rose);font-family:'Caveat',cursive;font-size:1.6rem}
+    .postscript h2{font-family:'Caveat',cursive;font-size:clamp(2.1rem,5vw,3.2rem);font-weight:500;line-height:1.2;color:var(--rose);margin-bottom:27px}
+    .postscript p{font-size:1.08rem;line-height:1.95;color:#70514a;margin-bottom:24px}
+    .postscript .last-line{font-family:'Caveat',cursive;font-size:1.7rem;line-height:1.5;color:var(--rose);margin-top:30px}
+    .signature{font-family:'Caveat',cursive;font-size:2rem;color:var(--ink);margin-top:30px}
+    footer{border-top:1px solid #e3cfc8;max-width:1190px;margin:auto;padding:25px 30px 34px;display:flex;justify-content:space-between;align-items:center;gap:20px;color:var(--muted);font-size:.82rem}
+    .replay{border:0;background:none;border-bottom:1px solid #cda9a5;padding:0;font-size:.85rem;color:var(--rose)}
+    dialog{border:1px solid #d8b8aa;border-radius:7px;padding:0;background:var(--paper);max-width:min(1500px,96vw);width:96vw;max-height:94svh;color:var(--ink);box-shadow:0 25px 100px #33241f40}
+    dialog::backdrop{background:#392d2ccc;backdrop-filter:blur(6px)}
+    .reader-bar{display:flex;align-items:center;justify-content:space-between;gap:15px;padding:15px 22px;border-bottom:1px solid #e2cfc1;position:sticky;top:0;background:var(--paper);z-index:1}
+    .reader-title{font-family:'Caveat',cursive;font-size:1.55rem}
+    .reader-actions{display:flex;gap:20px;align-items:center;font-size:.82rem}
+    .reader-actions a{white-space:nowrap}
+    .close-reader{border:1px solid #d5b3a8;border-radius:100px;background:transparent;padding:5px 15px;font-size:.85rem}
+    .reader-image{width:100%;height:auto;display:block;touch-action:pan-y}
+    .reader-footer{display:flex;justify-content:space-between;align-items:center;gap:15px;padding:15px 22px;background:var(--paper);position:sticky;bottom:0;border-top:1px solid #dfc5b6}
+    @media(hover:hover) and (pointer:fine){.gift-button:hover{transform:translateY(-6px)}.part-tab:hover{transform:translateY(-3px)}.page-nav:not(:disabled):hover{background:#f7e0df}}
+    @media(max-width:800px){.letter-book{padding:0 20px;margin-bottom:65px}.book-label{font-size:.8rem}.book-label strong{font-size:1.4rem}.page-surface{padding:4px}.page-nav{padding:9px 14px;font-size:.82rem}.book-controls{gap:8px;margin-top:24px}.page-position{font-size:.8rem}.intro{padding-top:55px;padding-bottom:45px}.intro p{font-size:1.45rem}.postscript{padding-bottom:65px}.topline{padding:23px 22px}.topline span:last-child{display:none}.reader-bar{padding:11px 13px}.reader-title{font-size:1.2rem}.reader-actions{gap:12px}.reader-actions a{font-size:.74rem}.reader-footer{padding:12px 13px}footer{margin:0 22px;padding:23px 0 30px;align-items:flex-start}}
+    @media(prefers-reduced-motion:reduce){.ring{animation:none!important}.letter-world{animation:arrive 200ms ease both}.gift-button,.part-tab{transition:opacity 150ms ease}.gift-button:hover,.gift-button:active,.part-tab:hover{transform:none}}
+  </style>
+</head>
+<body>
+  <section class="opening" id="opening" aria-labelledby="gift-title">
+    <p class="delivery-tag">A royal delivery</p>
+    <button class="gift-button" id="open-gift" aria-label="Open your gift, Miss Chudail">
+      <img class="gift-art" src="assets/gift.webp" width="240" height="240" alt="A little pink gift, tied with a bow">
+      <h1 id="gift-title">For you, Miss Chudail.</h1>
+      <span class="tap">Tap to open</span>
+    </button>
+    <p class="opening-foot">From your most troublesome apprentice, Susan.</p>
+  </section>
+  <div class="tunnel" id="tunnel" hidden aria-label="Your gift is opening">
+    <img class="ring" src="assets/flower-ring.webp" alt="" width="1024" height="1024">
+    <img class="ring" src="assets/flower-ring.webp" alt="" width="1024" height="1024">
+    <img class="ring" src="assets/flower-ring.webp" alt="" width="1024" height="1024">
+    <img class="ring" src="assets/flower-ring.webp" alt="" width="1024" height="1024">
+    <img class="ring" src="assets/flower-ring.webp" alt="" width="1024" height="1024">
+    <img class="ring" src="assets/flower-ring.webp" alt="" width="1024" height="1024">
+    <img class="ring" src="assets/flower-ring.webp" alt="" width="1024" height="1024">
+    <button class="skip" id="skip">Skip flowers</button>
+  </div>
+  <main class="letter-world" id="letters" hidden>
+    <div class="topline"><span>To Her Drama Highness, Subhana</span><span>From the apprentice who still hasn’t learnt his lesson</span></div>
+    <div class="intro">
+      <h1 id="letter-title" tabindex="-1">For the maalkin,<br>I present…</h1>
+      <p>Ek letter. Teen hisse.</p>
+    </div>
+    <section class="letter-book" aria-label="One letter in three parts">
+      <div class="book-label"><strong>A letter for Subhana</strong><span>From Susan</span></div>
+      <div class="page-surface" id="page-surface">
+        <button class="letter-trigger" id="open-reader" aria-label="Read part 1 up close"><img id="current-page" src="assets/letter-1.webp" width="1456" height="1086" alt="Part one of Susan’s letter to Subhana, thanking her for her advice and support."></button>
+      </div>
+      <div class="book-controls js-only"><button class="page-nav" id="previous-part" disabled>Previous part</button><span class="page-position" id="part-position" aria-live="polite">Part 1 of 3</span><button class="page-nav" id="next-part">Next part</button></div>
+      <nav class="part-tabs js-only" aria-label="Choose a part of the letter">
+        <button class="part-tab" data-part="0" aria-pressed="true"><img src="assets/letter-1.webp" alt="" width="1456" height="1086"><span>Part 1</span></button>
+        <button class="part-tab" data-part="1" aria-pressed="false"><img src="assets/letter-2.webp" alt="" width="1456" height="1086"><span>Part 2</span></button>
+        <button class="part-tab" data-part="2" aria-pressed="false"><img src="assets/letter-3.webp" alt="" width="1456" height="1086"><span>Part 3</span></button>
+      </nav>
+      <p class="gallery-help js-only">Swipe to turn the page. Tap the letter to read it up close.</p>
+      <noscript><img src="assets/letter-2.webp" alt="Part two of the letter" style="width:100%;height:auto"><img src="assets/letter-3.webp" alt="Part three of the letter" style="width:100%;height:auto"></noscript>
+    </section>
+    <section class="postscript" aria-labelledby="ps-title">
+      <div class="ps-rule"><span>P.S.</span></div>
+      <h2 id="ps-title">Madam, ab iska paper kaand bhi suniye.</h2>
+      <p>Socha tha ek letter likhunga, aap thoda hass dengi, kaam khatam. Lekin aapke liye kuch ban raha ho aur mere saath drama na ho? Itni seedhi kahaani toh honi hi nahi thi 😭</p>
+      <p>Shuruaat hui ghar mein paper dhoondhne se. Paper mila toh dimaag ne bola, “Plain paper? Chudail ji ke liye? Thoda coffee wala colour dete hain.” Maine bhi apne hi dimaag pe bharosa kar liya. Bas, wahi se barbaadi shuru.</p>
+      <p>Us coffee colour ke chakkar mein saara paper khatam ho gaya. Main paper ko purana sa look dene chala tha, paper ne meri patience ka antim sanskaar kar diya. Last mein ek hi card type ka piece bacha. Usko dekha aur mann mein bas ek baat aayi: “Bhai, ab tu hi hai. Tu bhi mat jaana.” Aakhir isi pe kar diya 😭</p>
+      <p>Phir haath se likhne ki baari aayi. Meri handwriting ko achanak itni badi zimmedaari mil gayi ki uski bhi thodi practice karni padi. Toh haan, time laga. Effort laga. Aur beech mein kaafi baar “yaar, ye ho kyun nahi raha” bhi hua.</p>
+      <p>Lekin banate waqt bas yahi socha, aap jab padhengi toh ek baar muskura toh dengi. Aur shayad ye bhi samajh jaayengi ki main kitna bhi tang kar loon, aap mere liye kitni khaas hain. Uske liye ye poora paper kaand worth it tha.</p>
+      <p class="last-line">Ab handwriting pe roast karna hai toh kar lijiye.<br>Bas pehle ek compliment. Itna toh banta hai, madam.</p>
+      <div class="signature">Your most troublesome apprentice,<br>Pyaara bhai Susan</div>
+    </section>
+    <footer><span>For Subhana, with a little royal chaos.</span><button class="replay" id="replay">Open the gift again</button></footer>
+  </main>
+  <dialog id="reader" aria-labelledby="reader-title">
+    <div class="reader-bar"><span class="reader-title" id="reader-title">A letter for Subhana</span><div class="reader-actions"><a id="original-link" href="assets/letter-1.webp" target="_blank" rel="noopener">View original</a><button class="close-reader" id="close-reader">Close</button></div></div>
+    <img class="reader-image" id="reader-image" src="assets/letter-1.webp" alt="">
+    <div class="reader-footer"><button class="page-nav" id="reader-previous" disabled>Previous part</button><span class="page-position" id="reader-position" aria-live="polite">Part 1 of 3</span><button class="page-nav" id="reader-next">Next part</button></div>
+  </dialog>
+  <noscript><style>#opening,.js-only{display:none}#letters[hidden]{display:block!important}</style></noscript>
+  <script>
+    const opening=document.getElementById('opening');
+    const letters=document.getElementById('letters');
+    const tunnel=document.getElementById('tunnel');
+    const openButton=document.getElementById('open-gift');
+    const reduce=window.matchMedia('(prefers-reduced-motion: reduce)');
+    let openingTimer=null;
+    let isOpening=false;
+    function showLetters(){
+      if(!isOpening)return;
+      clearTimeout(openingTimer);
+      tunnel.classList.remove('running');
+      tunnel.hidden=true;
+      letters.hidden=false;
+      isOpening=false;
+      window.scrollTo(0,0);
+      document.getElementById('letter-title').focus({preventScroll:true});
+    }
+    function openGift(){
+      if(isOpening)return;
+      isOpening=true;
+      opening.hidden=true;
+      if(reduce.matches){showLetters();return;}
+      tunnel.hidden=false;
+      tunnel.classList.add('running');
+      document.getElementById('skip').focus({preventScroll:true});
+      openingTimer=setTimeout(showLetters,4600);
+    }
+    openButton.addEventListener('click',openGift);
+    document.getElementById('skip').addEventListener('click',showLetters);
+    document.getElementById('replay').addEventListener('click',()=>{
+      turnTo(0);letters.hidden=true;opening.hidden=false;window.scrollTo(0,0);openButton.focus({preventScroll:true});
+    });
+    reduce.addEventListener('change',()=>{if(reduce.matches&&isOpening)showLetters();});
+    const pages=[
+      {src:'assets/letter-1.webp',alt:'Part one of Susan’s letter to Subhana, thanking her for her advice and support.'},
+      {src:'assets/letter-2.webp',alt:'Part two continues the same letter with loyalty, questionable wisdom and memes, and a reminder that even a queen can rest.'},
+      {src:'assets/letter-3.webp',alt:'The final part asks Subhana not to underestimate herself and promises support, signed Susan.'}
+    ];
+    const reader=document.getElementById('reader');
+    const currentImage=document.getElementById('current-page');
+    const readerImage=document.getElementById('reader-image');
+    const tabs=[...document.querySelectorAll('[data-part]')];
+    let currentPart=0;
+    let suppressOpen=false;
+    function turnTo(part){
+      if(part<0||part>=pages.length||part===currentPart)return;
+      const direction=part>currentPart?1:-1;
+      currentPart=part;
+      const page=pages[part];
+      for(const img of [currentImage,readerImage]){
+        img.getAnimations().forEach(animation=>animation.cancel());
+        img.src=page.src;img.alt=page.alt;
+        const start=reduce.matches?{opacity:.5}:{opacity:.5,transform:'translateX('+direction*12+'px) rotateY('+direction*8+'deg)'};
+        img.animate([start,{opacity:1,transform:'translateX(0) rotateY(0deg)'}],{duration:reduce.matches?150:220,easing:'cubic-bezier(.23,1,.32,1)'});
+      }
+      for(const id of ['part-position','reader-position'])document.getElementById(id).textContent='Part '+(part+1)+' of 3';
+      for(const id of ['previous-part','reader-previous'])document.getElementById(id).disabled=part===0;
+      for(const id of ['next-part','reader-next'])document.getElementById(id).disabled=part===pages.length-1;
+      tabs.forEach((tab,index)=>tab.setAttribute('aria-pressed',String(index===part)));
+      document.getElementById('open-reader').setAttribute('aria-label','Read part '+(part+1)+' up close');
+      document.getElementById('original-link').href=page.src;
+      reader.scrollTop=0;
+    }
+    ['previous-part','reader-previous'].forEach(id=>document.getElementById(id).addEventListener('click',()=>turnTo(currentPart-1)));
+    ['next-part','reader-next'].forEach(id=>document.getElementById(id).addEventListener('click',()=>turnTo(currentPart+1)));
+    tabs.forEach(tab=>tab.addEventListener('click',()=>turnTo(Number(tab.dataset.part))));
+    document.getElementById('open-reader').addEventListener('click',()=>{
+      if(suppressOpen){suppressOpen=false;return;}
+      readerImage.alt=pages[currentPart].alt;reader.showModal();reader.scrollTop=0;
+    });
+    function enableSwipe(element){
+      let start=null;
+      element.addEventListener('pointerdown',event=>{start={x:event.clientX,y:event.clientY};});
+      element.addEventListener('pointercancel',()=>{start=null;});
+      element.addEventListener('pointerup',event=>{
+        if(!start)return;
+        const dx=event.clientX-start.x,dy=event.clientY-start.y;start=null;
+        if(Math.abs(dx)>60&&Math.abs(dx)>Math.abs(dy)*1.5){
+          suppressOpen=element.id==='page-surface';
+          turnTo(currentPart+(dx<0?1:-1));
+          setTimeout(()=>{suppressOpen=false;},0);
+        }
+      });
+    }
+    enableSwipe(document.getElementById('page-surface'));enableSwipe(readerImage);
+    document.addEventListener('keydown',event=>{
+      if(letters.hidden||event.altKey||event.ctrlKey||event.metaKey)return;
+      const inBook=reader.open||document.querySelector('.letter-book').contains(document.activeElement);
+      if(!inBook)return;
+      if(event.key==='ArrowRight'){event.preventDefault();turnTo(currentPart+1);}
+      if(event.key==='ArrowLeft'){event.preventDefault();turnTo(currentPart-1);}
+    });
+    document.getElementById('close-reader').addEventListener('click',()=>reader.close());
+    reader.addEventListener('click',event=>{if(event.target===reader){const rect=reader.getBoundingClientRect();if(event.clientX<rect.left||event.clientX>rect.right||event.clientY<rect.top||event.clientY>rect.bottom)reader.close();}});
+  </script>
+</body>
+</html>
